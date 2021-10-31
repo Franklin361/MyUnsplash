@@ -16,10 +16,11 @@ const fastify_1 = __importDefault(require("fastify"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const config_1 = require("./src/database/config");
 const image_route_1 = require("./src/router/image.route");
+dotenv_1.default.config();
 const server = (0, fastify_1.default)({
     logger: true
 });
-dotenv_1.default.config();
+server.register(require('fastify-cors'));
 image_route_1.imageRoute.forEach(route => server.route(route));
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

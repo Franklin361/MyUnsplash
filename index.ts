@@ -3,12 +3,15 @@ import dotenv from 'dotenv';
 import { dbConnection } from "./src/database/config";
 import { imageRoute } from './src/router/image.route';
 
+dotenv.config();
+
+
 const server = Fastify({
     logger: true
 });
 
-dotenv.config();
 
+server.register(require('fastify-cors'));
 
 imageRoute.forEach( route => server.route(route) );
 
