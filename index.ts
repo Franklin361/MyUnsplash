@@ -16,7 +16,7 @@ imageRoute.forEach( route => server.route(route) );
 const start = async () => {
     try {
 
-        await server.listen(process.env.PORT || 3000);
+        await server.listen(process.env.PORT || 5000);
 
     } catch (error) {
         server.log.error(error)

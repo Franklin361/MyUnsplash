@@ -23,7 +23,7 @@ dotenv_1.default.config();
 image_route_1.imageRoute.forEach(route => server.route(route));
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield server.listen(process.env.PORT || 3000);
+        yield server.listen(process.env.PORT || 5000);
     }
     catch (error) {
         server.log.error(error);
