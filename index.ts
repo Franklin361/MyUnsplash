@@ -16,16 +16,12 @@ server.register(require('fastify-cors'));
 imageRoute.forEach( route => server.route(route) );
 
 
-const start = async () => {
-    try {
-
-        await server.listen(process.env.PORT || 5000);
-
-    } catch (error) {
-        server.log.error(error)
-        process.exit(1)
+server.listen(process.env.PORT||8000, (err, address) => {
+    if (err) {
+      console.error(err)
+      process.exit(1)
     }
-};
+    console.log(`Server listening at ${address}`)
+})
 
 dbConnection();
-start();
