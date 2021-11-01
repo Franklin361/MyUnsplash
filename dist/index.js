@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -13,12 +22,17 @@ const server = (0, fastify_1.default)({
 });
 server.register(require('fastify-cors'));
 image_route_1.imageRoute.forEach(route => server.route(route));
-server.listen(process.env.PORT || 8000, (err, address) => {
-    if (err) {
-        console.error(err);
+const start = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const ADDRESS = process.env.ADDRESS || process.env.HOST || process.env.HOSTNAME || "0.0.0.0";
+        const PORT = process.env.PORT || 5000;
+        yield server.listen(PORT, ADDRESS);
+    }
+    catch (error) {
+        server.log.error(error);
         process.exit(1);
     }
-    console.log(`Server listening at ${address}`);
 });
 (0, config_1.dbConnection)();
+start();
 //# sourceMappingURL=index.js.map

@@ -24,6 +24,16 @@ exports.imageRoute = [
         })
     },
     {
+        url: '/api/images/:word',
+        method: 'GET',
+        handler: (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
+            const results = yield ImageSchema_1.default.find({});
+            const { word } = request.params;
+            const images = results.filter(img => img.label.includes(word));
+            reply.send(images);
+        })
+    },
+    {
         url: '/api/image',
         method: 'POST',
         handler: (request, reply) => __awaiter(void 0, void 0, void 0, function* () {

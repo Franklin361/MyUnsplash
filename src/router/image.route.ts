@@ -12,6 +12,20 @@ export const imageRoute:RouteOptions[] = [
         }
     },
     {
+        url:'/api/images/:word',
+        method:'GET',
+        handler: async(request, reply)=>{ 
+
+            const results = await ImageSchema.find({});
+            interface IParams { word:string}
+
+            const { word } = request.params as IParams;
+
+            const images = results.filter( img => img.label.includes(word));
+            reply.send(images);
+        }
+    },
+    {
         url:'/api/image',
         method:'POST',
         handler: async(request, reply) => {
